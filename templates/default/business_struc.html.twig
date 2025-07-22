@@ -1,0 +1,281 @@
+{% extends 'register.html.twig' %}
+
+{% block title %}OmniFund | {{ title }}{% endblock %}
+
+{% block container  %}
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-content">
+                {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+                {% form_theme form 'input.error.html.twig' %}
+
+                <div class="row" style="margin-bottom:12px;">
+                    <div class="col-md-12">
+                        <div class="col-xs-12">
+                            <div style="float:right">
+                                <div class="btn-group save-group">
+                                    <div class="btn-group save-group">{{ form_widget(form.Save) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            {{ include ('step_indicator.html.twig', {step: 2}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {# Left Side #}
+                    <div class="col-xs-6">
+                        <div class="form-group form-group-nopadding">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Ownership Type: <label style="color: red">*</label></label>
+                                <span class="col-xs-6 {{ form.ownershipType.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownershipType) }}
+                                    {{ form_errors(form.ownershipType) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Business <br/> Open Date: <label style="color: red">*</label></label>
+                                <span class="col-xs-6 {{ form.businessOpenDate.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    <div class='input-group date js-datepicker'>
+                                        {{ form_widget(form.businessOpenDate) }}
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                    {{ form_errors(form.businessOpenDate) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">MCC Code:</label>
+                                <span class="col-xs-6 {{ form.mccCode.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.mccCode) }}
+                                    {{ form_errors(form.mccCode) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Refund Policy: <label style="color: red">*</label></label>
+                                <span class="col-xs-6 {{ form.refundPolicy.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.refundPolicy) }}
+                                    {{ form_errors(form.refundPolicy) }}
+                                </span>
+                                <span class="col-xs-3" id="refundPolicyOther" style="display: none">
+                                    {{ form_widget(form.refundPolicyOther) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Location Type: <label style="color: red">*</label></label>
+                                <span class="col-xs-6 {{ form.locationType.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.locationType) }}
+                                    {{ form_errors(form.locationType) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Describe Business Products or Services: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.businessDescription.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.businessDescription) }}
+                                    {{ form_errors(form.businessDescription) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Do you want to process credit cards? <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.acceptCC.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.acceptCC) }}
+                                    {{ form_errors(form.acceptCC) }}
+                                </span>
+                            </div>
+
+                            {# Accept CC #}
+                            <div class="form-group col-xs-10" id="accept_cc" style="padding-left: 50px; display: none">
+                                <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Currently Processing?</label>
+                                        <span class="col-xs-6">
+                                            {{ form_widget(form.currentlyProcessingCc) }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Do you want to process ACH (echeck) transactions? <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.acceptAch.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.acceptAch) }}
+                                    {{ form_errors(form.acceptAch) }}
+                                </span>
+                            </div>
+
+                            {# Accept ACH #}
+                            <div class="form-group col-xs-10" id="accept_ach" style="padding-left: 50px; display: none">
+                                <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Currently Processing?</label>
+                                        <span class="col-xs-6">
+                                            {{ form_widget(form.currentlyProcessingAch) }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+
+                    {# Right Side #}
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Do you accept Advance Payments? <label style="color: red">*</label></label>
+                            <span class="col-xs-6 {{ form.acceptAdvance.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.acceptAdvance) }}
+                                {{ form_errors(form.acceptAdvance) }}
+                            </span>
+                        </div>
+
+                        {# Advance Payments #}
+                        <div class="form-group" id="accept_advance" style="padding-left: 50px; display: none">
+                            <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">How many days?</label>
+                                    <span class="col-xs-6 {{ form.advanceDaysDepositPaid.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.advanceDaysDepositPaid) }}
+                                        {{ form_errors(form.advanceDaysDepositPaid) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Is your business Seasonal? <label style="color: red">*</label></label>
+                            <span class="col-xs-6 {{ form.seasonal.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.seasonal) }}
+                                {{ form_errors(form.seasonal) }}
+                            </span>
+                        </div>
+
+                        {# Seasonal #}
+                        <div class="form-group" id="business_seasonal" style="padding-left: 50px; display: none">
+                            <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                <div class="form-group" style="margin-bottom: 0px">
+                                    <label class="col-xs-5 control-label">Active Months:</label>
+                                    <span class="col-xs-6 {{ form.activeMonths.vars.errors|length > 0 ? 'has-error has-danger' }}" style="display: flex;">
+                                        {{ form_widget(form.activeMonths) }}
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label"></label>
+                                    <span class="col-xs-6 {{ form.activeMonths.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_errors(form.activeMonths) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Who performs fulfillment service? <label style="color: red">*</label></label>
+                            <span class="col-xs-6 {{ form.fulfillmentPerformedBy.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.fulfillmentPerformedBy) }}
+                                {{ form_errors(form.fulfillmentPerformedBy) }}
+                            </span>
+                        </div>
+
+                        {# Vendor #}
+                        <div class="form-group" id="fulfillment_vendor" style="padding-left: 50px; display: none">
+                            <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">Fulfillment House Name and Address:</label>
+                                    <span class="col-xs-7 {{ form.fulfillmentVendor.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.fulfillmentVendor) }}
+                                        {{ form_errors(form.fulfillmentVendor) }}
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">Fulfillment House Contact Info:</label>
+                                    <span class="col-xs-7 {{ form.fulfillmentContact.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.fulfillmentContact) }}
+                                        {{ form_errors(form.fulfillmentContact) }}
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">Is Fulfillment House PCI DSS Compliant?</label>
+                                    <span class="col-xs-7 {{ form.fulfillmentPci.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.fulfillmentPci) }}
+                                        {{ form_errors(form.fulfillmentPci) }}
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-xs-5 control-label">% of shipments by this vendor:</label>
+                                    <span class="col-xs-7 {{ form.fulfillmentPercent.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.fulfillmentPercent) }} %
+                                        {{ form_errors(form.fulfillmentPercent) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.combobox').combobox();
+
+            // Bootstrap Multiselect
+            $('#register_business_struc_form_activeMonths').multiselect({
+                includeSelectAllOption: true,
+                nonSelectedText: ' ',
+                buttonClass: 'form-control input-sm multiselect-button',
+                buttonWidth: '210px',
+            });
+
+            // Bootstrap Datepicker
+            $('.js-datepicker').datetimepicker({
+                format: 'MM/DD/YYYY'
+            });
+
+            $("#register_business_struc_form_acceptCC_1").on('click', function (event) {
+                $("#register_business_struc_form_currentlyProcessingCc_1").prop("checked", true);
+            });
+
+            $("#register_business_struc_form_acceptAch_1").on('click', function (event) {
+                $("#register_business_struc_form_currentlyProcessingAch_1").prop("checked", true);
+            });
+
+            // > Show input for "Other"
+            $("#register_business_struc_form_refundPolicy").on('change', function (event) {
+                $("#refundPolicyOther").hide();
+                if("O" == this.value)
+                {
+                    $("#refundPolicyOther").show();
+                }
+            });
+
+            if("O" == $("#register_business_struc_form_refundPolicy").val()){
+                $("#refundPolicyOther").show();
+            }
+            // < Show input for "Other"
+
+            fadeInOut("#register_business_struc_form_acceptCC_0", "#register_business_struc_form_acceptCC_1", "#accept_cc");
+            fadeInOut("#register_business_struc_form_acceptAch_0", "#register_business_struc_form_acceptAch_1", "#accept_ach");
+            fadeInOut("#register_business_struc_form_acceptAdvance_0", "#register_business_struc_form_acceptAdvance_1", "#accept_advance");
+            fadeInOut("#register_business_struc_form_seasonal_0", "#register_business_struc_form_seasonal_1", "#business_seasonal");
+            fadeInOut("#register_business_struc_form_fulfillmentPerformedBy_1", "#register_business_struc_form_fulfillmentPerformedBy_0", "#fulfillment_vendor");
+
+            buttonBlur('register_business_struc_form', '...Saving...');
+        });
+    </script>
+{% endblock %}

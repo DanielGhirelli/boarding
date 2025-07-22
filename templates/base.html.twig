@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}OmniFund | Billing Suite{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="language" content="en" />
+        <link rel="icon" type="image/png" href="{{ asset('includes/images/favicon.png') }}" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('includes/css/font-awesome/4.6.3/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('includes/css/bootstrap/3.4.1/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('includes/css/site.css?v=1705014') }}">
+            <link rel="stylesheet" href="{{ asset('includes/css/gtb-classic-rewrite.css') }}">
+        {% endblock %}
+
+        <style>
+            h3.main-title {
+                font-size: 19px;
+                font-weight: 600;
+                line-height: 23px;
+                margin: 0 0 10px;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+
+        {% block footer %}
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <ul style="list-style: none;">
+                                <li style="text-decoration: underline; color: #8C8C8C"><a href="https://www.omnifund.com">Powered by OmniFund</a></li>
+                                <li style="text-decoration: underline; color: #8C8C8C"><a href="https://fortispay.com/privacy-and-terms">Terms of Use</a></li>
+                                <li style="text-decoration: underline; color: #8C8C8C"><a href="https://fortispay.com/privacy-and-terms">Privacy Policy</a></li>
+                                <li style="text-decoration: underline; color: #8C8C8C"><a href="https://support.gotobilling.com/">Help Desk</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <img src="{{ asset('includes/images/omnifund_footer_logo.png') }}" style="height: 60px;"/>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+            <script type="text/javascript" src="{{ asset('includes/scripts/bootstrap/3.4.1/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('includes/scripts/base.js') }}"></script>
+
+            <script type="text/javascript" >
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-8208955-1', 'auto');
+                ga('send', 'pageview');
+
+                $('a, button').click(function(){
+                    var text = $(this).text().replace(/[ \t\n\r]/g, ' ').trim();
+                    var tag = $(this).prop('tagName').toLowerCase();
+                    if (tag === 'a') tag = 'link';
+                    ga('send', 'event', tag, 'click', text);
+                });
+            </script>
+
+            <script>
+                !function (a, b, c, d, e, f){
+                    a.ddjskey = e;
+                    a.ddoptions = f || null;
+                    var m = b.createElement(c), n = b.getElementsByTagName(c)[0];
+                    m.async = 1, m.src = d, n.parentNode.insertBefore(m, n);
+                }(window,
+                    document,
+                    "script",
+                    "https://dd.omnifund.com/tags.js",
+                    "A46FE4ED68E294D184708E39AB61B1",
+                    { ajaxListenerPath: true }
+                );
+            </script>
+        {% endblock %}
+    </body>
+</html>

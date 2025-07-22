@@ -1,0 +1,7 @@
+{% block form_errors %}
+    {% apply spaceless %}
+        {% for error in errors %}
+            <div class="help-block with-errors">{{ error.message|striptags }}</div>
+        {% endfor %}
+    {% endapply %}
+{% endblock %}

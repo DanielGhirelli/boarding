@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+
+  pre_build:
+    commands:
+      - export SYMFONY_DEPRECATIONS_HELPER=weak
+
+  build:
+    commands:
+      - composer validate
+      - composer install --prefer-dist --no-progress
+      - php bin/console doctrine:database:create --env=test
+      - php bin/console doctrine:schema:update --force --env=test
+      - php bin/console cache:clear --env=test
+      - vendor/bin/phpunit --testsuite default-tests
+  post_build:
+    commands:
+
+artifacts:
+  files:
+    - '**/*'

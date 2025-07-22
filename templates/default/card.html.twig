@@ -1,0 +1,435 @@
+{% extends 'register.html.twig' %}
+
+{% block title %}OmniFund | {{ title }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        .popover {
+            max-width: 310px !important;
+            width: 310px !important;
+            text-align: left !important;
+            background-color: #ffffff !important;
+            border: 1px solid #83a2a9 !important;
+            box-shadow: 0 0 9px 0 #404040;
+            font-size: 12px !important;
+        }
+    </style>
+{% endblock %}
+
+{% block container  %}
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-content">
+                {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+                {% form_theme form 'input.error.html.twig' %}
+
+                <div class="row" style="margin-bottom:12px;">
+                    <div class="col-md-12">
+                        <div class="col-xs-12">
+                            <div style="float:right">
+                                <div class="btn-group save-group">
+                                    <div class="btn-group save-group">{{ form_widget(form.Save) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            {{ include ('step_indicator.html.twig', {step: 5}) }}
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="alert alert-info alert-dismissible fade in" style="margin-bottom: 10px;">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+                                <h4>Note:</h4>
+                                 Please provide accurate data. These numbers are used to set processing and risk
+                                 thresholds. Updates may be requested at any time, but accuracy ensures there are no
+                                 funding delays.
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <h3 class="main-title">
+                                <!-- Title -->
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {# Left Side #}
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Volumes: <label style="color: red">*</label></label>
+                            <span class="col-xs-5 {{ form.annualVolume.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                $ {{ form_widget(form.annualVolume) }}
+                                <p class="help-block">Annual Volume</p>
+                            </span>
+                            <span class="col-xs-1" style="padding: 5px 0; margin-left: -40px">
+                                <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Yearly $ amount of credits cards received in a calendar year.'>
+                                    <i class="fa fa-info-circle fa-lg"></i>
+                                </a>
+                            </span>
+                        </div>
+
+                        <div class="form-group form-group-nopadding">
+                            <label class="col-xs-3 control-label"></label>
+                            <div class="col-xs-9">
+                                <div class="row nopadding">
+                                    <div class="col-xs-5 {{ form.avgMonthlyVolume.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        $ {{ form_widget(form.avgMonthlyVolume) }}
+                                        <p class="help-block">Average Monthly</p>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -35px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Monthly $ amount average of credit cards received in a calendar month.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-5 {{ form.highMonthlyVolume.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        $ {{ form_widget(form.highMonthlyVolume) }}
+                                        <p class="help-block">High Monthly</p>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -35px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='The highest $ amount of credit cards received in a month.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+
+                                <br/>
+
+                                <div class="row nopadding">
+                                    <div class="col-xs-5 {{ form.avgTicket.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        $ {{ form_widget(form.avgTicket) }}
+                                        <p class="help-block">Average Ticket</p>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -35px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Average transaction $ amount.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-5 {{ form.highTicket.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        $ {{ form_widget(form.highTicket) }}
+                                        <p class="help-block">High Ticket</p>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -35px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Highest transaction $ amount you will process.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-nopadding" style="margin-bottom: 0px;">
+                            <label class="col-xs-3 control-label">Swiped/Non-Swiped Percentages: <label style="color: red">*</label></label>
+                            <div class="col-xs-9 {{ form.swipeF2fPercent.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                <em class="help-block">The total of the three must equal 100%.</em>
+                                <div class="row nopadding">
+                                    <div class="col-xs-4">
+                                        <div class="form-group form-group-nopadding">
+                                            {{ form_widget(form.swipeF2fPercent) }} %
+                                            <p class="help-block">Face-to-Face</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -35px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='% In-person Payments'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            {{ form_widget(form.swipeMotoPercent) }} %
+                                            <p class="help-block">Mail/Telephone Order</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -35px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='% Payment is done remotely via payment page, invoice payment, etc.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            {{ form_widget(form.swipeInternetPercent) }} %
+                                            <p class="help-block">E-Commerce</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -35px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='% Payments are made via a shopping cart, hosted payment page, or website.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Business to Business:</label>
+                            <span class="col-xs-4 {{ form.b2bPercent.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.b2bPercent) }} %
+                                {{ form_errors(form.b2bPercent) }}
+                            </span>
+                            <span class="col-xs-1" style="padding: 5px 0; margin-left: -35px">
+                                <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='% of B2B transactions'>
+                                    <i class="fa fa-info-circle fa-lg"></i>
+                                </a>
+                            </span>
+                        </div>
+
+                        {# B2B Merchant #}
+                        <div class="form-group" id="b2bMerchant" style="padding-left: 50px; display: none">
+                            <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Do you use a Third-Party to fulfill Products or Services?</label>
+                                    <span class="col-xs-6 {{ form.b2bMerchant.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.b2bMerchant) }}
+                                        {{ form_errors(form.b2bMerchant) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Methods of Advertise:</label>
+                            <span class="col-xs-9 {{ form.merchantAdvertise.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                <em class="help-block">Select all that apply.</em>
+                                {{ form_widget(form.merchantAdvertise) }}
+                                {{ form_errors(form.merchantAdvertise) }}
+
+                                <span class="maWebsite" style="display: none"><br> Website: {{ form_widget(form.merchantAdvertiseWeb) }}</span>
+                                <span class="maWebsite" style="display: none"><br> Email: {{ form_widget(form.merchantAdvertiseEmail) }}</span>
+                                <span class="maOther {{ form.merchantAdvertiseOther.vars.errors|length > 0 ? 'has-error has-danger' }}" style="display: none"><br> Other: <label style="color: red">*</label> {{ form_widget(form.merchantAdvertiseOther) }}</span>
+                            </span>
+                        </div>
+
+                        <div class="form-group" id="ccEquipOption" style="display: none;">
+                            <label class="col-xs-3 control-label">Do you need equipment?</label>
+                            <span class="col-xs-9 {{ form.ccEquipment.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.ccEquipment) }}
+                                {{ form_errors(form.ccEquipment) }}
+                            </span>
+                        </div>
+                    </div>
+
+                    {# Right Side #}
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Are you compliant with the Payment Card Industry Data Security Standards? <label style="color: red">*</label></label>
+                            <span class="col-xs-6 {{ form.compliantPci.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.compliantPci) }}
+                                {{ form_errors(form.compliantPci) }}
+                            </span>
+                        </div>
+
+                        {# PCI - Yes #}
+                        <div class="form-group" id="pci_yes" style="padding-left: 50px; display: none">
+                            <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Did you complete your PCI through self-assessment?</label>
+                                    <span class="col-xs-7 {{ form.pciSelfAssessment.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.pciSelfAssessment) }}
+                                        {{ form_errors(form.pciSelfAssessment) }}
+                                    </span>
+                                </div>
+
+                                <div class="form-group pci_self_assessment" style="display: none">
+                                    <label class="col-xs-3 control-label">Identify Security Assessor:</label>
+                                    <span class="col-xs-7 {{ form.pciSecAssessor.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.pciSecAssessor) }}
+                                        {{ form_errors(form.pciSecAssessor) }}
+                                    </span>
+                                </div>
+
+                                <div class="form-group pci_self_assessment" style="display: none;">
+                                    <label class="col-xs-3 control-label">Certificate Number:</label>
+                                    <span class="col-xs-7 {{ form.pciCertNumber.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.pciCertNumber) }}
+                                        {{ form_errors(form.pciCertNumber) }}
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Last Certification Date:</label>
+                                    <span class="col-xs-9 {{ form.pciCertDate.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        <div class='input-group date js-datepicker' style="width: 250px;">
+                                            {{ form_widget(form.pciCertDate) }}
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                        {{ form_errors(form.pciCertDate) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# PCI - No #}
+                        <div class="form-group" id="pci_no" style="padding-left: 50px;">
+                            <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-xs-12 control-label" style="text-align: justify;">Are you interested in completing this certification through WorldPay's third party, or doing it yourself? If so which plan would you be interested in:</label>
+
+                                    <span class="col-xs-7 {{ form.pciPaymentPlan.vars.errors|length > 0 ? 'has-error has-danger' }}" style="padding-top: 10px; display: flex">
+                                        {{ form_widget(form.pciPaymentPlan) }}
+                                        <a data-toggle="popover" style="padding: 2px 0px 0px 10px; cursor: pointer" title='Note <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='The self assessment is free, we can send you the information on how to complete it on your own. <strong><a href="https://support.gotobilling.com/knowledgeBase/6431647" target="_blank">Learn more</a></strong>'>
+                                            <i class="fa fa-question-circle fa-2x"></i>
+                                        </a>
+                                    </span>
+
+                                    <label class="col-xs-12 {{ form.pciPaymentPlan.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_errors(form.pciPaymentPlan) }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Do you store cardholder data? <label style="color: red">*</label></label>
+                            <span class="col-xs-6 {{ form.storeCardholder.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.storeCardholder) }}
+                                {{ form_errors(form.storeCardholder) }}
+                            </span>
+                        </div>
+
+                        {# Cardholder #}
+                        <div class="form-group" id="cardholder" style="padding-left: 50px; display: none">
+                            <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Type: </label>
+                                    <span class="col-xs-6 {{ form.storePaper.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.storePaper) }} <label class="control-label" style="font-weight: normal; padding-right: 15px;">Paper</label>
+                                        {{ form_widget(form.storeElectronic) }} <label class="control-label" style="font-weight: normal">Electronic</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Have you ever experienced an Account Data Compromise? <label style="color: red">*</label></label>
+                            <span class="col-xs-6 {{ form.accCompromise.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.accCompromise) }}
+                                {{ form_errors(form.accCompromise) }}
+                            </span>
+                        </div>
+
+                        {# Acc Compromise #}
+                        <div class="form-group" id="acc_compromise" style="padding-left: 50px; display: none">
+                            <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">Have you completed remediation?</label>
+                                    <span class="col-xs-6 {{ form.accRemediation.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        {{ form_widget(form.accRemediation) }}
+                                        {{ form_errors(form.accRemediation) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Goods and services charged to credit card on: <label style="color: red">*</label></label>
+                            <span class="col-xs-6 {{ form.goodServicesOn.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.goodServicesOn) }}
+                                {{ form_errors(form.goodServicesOn) }}
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Are goods and services delivered: <label style="color: red">*</label></label>
+                            <span class="col-xs-6 {{ form.goodServicesDelivered.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.goodServicesDelivered) }}
+                                {{ form_errors(form.goodServicesDelivered) }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Bootstrap Multiselect
+            $('#register_card_form_merchantAdvertise').multiselect({
+                includeSelectAllOption: false,
+                nonSelectedText: ' ',
+                buttonClass: 'form-control input-sm multiselect-button',
+                buttonWidth: '250px',
+                onChange: function(element, checked) {
+                    $('.maWebsite').hide();
+                    $('.maOther').hide();
+
+                    merchantAdvertiseShow('#register_card_form_merchantAdvertise');
+                }
+            });
+
+            merchantAdvertiseShow('#register_card_form_merchantAdvertise');
+
+            // Bootstrap Datepicker
+            $('.js-datepicker').datetimepicker({
+                format: 'MM/DD/YYYY',
+                maxDate: moment()
+            });
+
+            // > PCI Data Security
+            if($('#register_card_form_compliantPci_0').is(':checked')) {
+                $('#pci_yes').fadeIn();
+                $('#pci_no').hide();
+            }
+
+            $("input[name='register_card_form[compliantPci]']").change(function (event) {
+                $('#pci_yes').css('display', (this.value == 'y' ? '' : 'none' ));
+                $('#pci_no').css('display', (this.value == 'n' ? '' : 'none'));
+            });
+            // < PCI Data Security
+
+            // > Show ccEquipment
+            $("#register_card_form_swipeF2fPercent").keyup(function(event) {
+                if(parseInt(this.value) > 0) {
+                    $("#ccEquipOption").fadeIn();
+                } else {
+                    $("#ccEquipOption").fadeOut();
+                }
+            });
+
+            if($("#register_card_form_swipeF2fPercent").val() > 0)
+            {
+                $("#ccEquipOption").show();
+            }
+            // < Show ccEquipment
+
+            // > Show B2b Merchant
+            $("#register_card_form_b2bPercent").keyup(function(event) {
+                $val = parseInt(this.value);
+
+                if($val > 20) {
+                    $("#b2bMerchant").fadeIn();
+                } else {
+                    $("#b2bMerchant").fadeOut();
+                }
+            });
+
+            $val = $("#register_card_form_b2bPercent").val();
+            if($val > 20)
+            {
+                $("#b2bMerchant").fadeIn();
+            }
+            // < Show B2b Merchant
+
+            fadeInOut("#register_card_form_storeCardholder_0", "#register_card_form_storeCardholder_1", "#cardholder");
+            fadeInOut("#register_card_form_pciSelfAssessment_1", "#register_card_form_pciSelfAssessment_0", ".pci_self_assessment");
+            fadeInOut("#register_card_form_accCompromise_0", "#register_card_form_accCompromise_1", "#acc_compromise");
+
+            buttonBlur('register_card_form', '...Saving...');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="en" />
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#eff0f0" style="font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-top: 20px; transform: scale(1, 1); transform-origin: left top 0px;" min-scale="0.285">
+    <tbody>
+    <tr>
+        <td width="100%" bgcolor="#eff0f0" valign="top" align="center" style="border-collapse:collapse">
+            <table width="600" border="0" cellpadding="0" cellspacing="0" bgcolor="#00c257">
+                <tbody>
+                <tr>
+                    <td width="285" align="left" style="border:none">
+                        <img src="{{ app.request.uriForPath('/includes/images/omnifund_email.png') }}" style="display:block; width: 364px; height: 80px;">
+                    </td>
+                    <td align="right" style="padding:0px 20px 0px 0px; font-family:Arial; font-size:18px; line-height:24px; text-align:right; color:#ffffff">
+                        <strong>Application Assistance</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#ffffff" colspan="2">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+                <tbody>
+                <tr>
+                    <td align="left">
+                        <div style="font-size:14px; margin: 8px 25px 25px 25px; text-align: justify;">
+                            Hello {{ businessLegalName }},
+                            <br/><br/>
+                            We noticed a request was made to this email address to recover some of your current account information.
+                            <br><br>
+                            Please, check below your Application ID:
+                            <ul><li><span style="color: #009ae8">{{ applicationHash }}</span></li></ul>
+                            <br/>
+                            If you did not make this request, please <a href="https://support.gotobilling.com/createticket" target="_blank">contact us</a>.
+                            <br/>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <table width="600" border="0" cellpadding="0" cellspacing="0" bgcolor="#eff0f0">
+                <tbody>
+                <tr>
+                    <td align="center">
+                        <br />
+                        <img src="{{ app.request.uriForPath('/includes/images/omnifund_footer_logo.png') }}" style="width: 167px; height: 50px; margin-bottom: 5px">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <font style="text-decoration:none; color:#A9ADAD; font-size:11px;">
+                            <a href="https://fortispay.com/privacy-and-terms" target="_blank" style="color:#A9ADAD; text-decoration:none!important"><u>Terms of Use</u></a>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="https://fortispay.com/privacy-and-terms" target="_blank" style="color:#A9ADAD; text-decoration:none!important"><u>Privacy Policy</u></a>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="https://support.gotobilling.com/" target="_blank" style="color:#A9ADAD; text-decoration:none!important"><u>Helpdesk</u></a>
+                        </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <font style="text-decoration:none; color:#A9ADAD; font-size:11px; line-height:14.5px;">
+                            <br>
+                            <br>
+                            © gotoBilling {{ "now"|date("Y") }}. All rights reserved.<br>
+                            OmniFund® is a registered trademark of gotoBilling, Inc.
+                        </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

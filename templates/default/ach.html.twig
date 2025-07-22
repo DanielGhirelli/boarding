@@ -1,0 +1,324 @@
+{% extends 'register.html.twig' %}
+
+{% block title %}OmniFund | {{ title }}{% endblock %}
+
+{% block container  %}
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-content">
+                {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+                {% form_theme form 'input.error.html.twig' %}
+
+                <div class="row" style="margin-bottom:12px;">
+                    <div class="col-md-12">
+                        <div class="col-xs-12">
+                            <div style="float:right">
+                                <div class="btn-group save-group">
+                                    <div class="btn-group save-group">{{ form_widget(form.Save) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            {{ include ('step_indicator.html.twig', {step: 6}) }}
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="alert alert-info alert-dismissible fade in" style="margin-bottom: 10px;">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+                                <h4>Note:</h4>
+                                <span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(1)</span>Please provide the best estimates or most accurate data. These numbers are used to set
+                                NACHA mandated processing parameters. Updates to amounts can be requested
+                                 at any time, but accuracy ensures there are no processing delays.
+                                <br/>
+                                <span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(2)</span>The use of an equipment is necessary for this feature.
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <h3 class="main-title">
+                                <!-- Title -->
+                                {{ title }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {# Left Side #}
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <div class="col-xs-12" style="margin-left: 25px">
+                                <h3 style="font-size: 16px; margin: 0; padding: 0;">Collecting money from customers (Debits) <label style="color: red">*</label><span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(1)</span></h3>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-nopadding">
+                            <div class="col-xs-12" style="margin-left: 25px">
+                                <div class="row nopadding">
+                                    <div class="col-xs-5">
+                                        <div class="form-group form-group-nopadding {{ form.debitMaxSingleAmount.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            $  {{ form_widget(form.debitMaxSingleAmount) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Single Amount</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum $ amount you will process in a single ACH transaction.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-5 {{ form.achAvgTransaction.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        $  {{ form_widget(form.achAvgTransaction) }}
+                                        <p class="help-block" style="margin-left: 15px">Average Transaction</p>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Average $ amount of a single ACH transaction.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="row nopadding">
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.debitMaxDailyAmount.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            $  {{ form_widget(form.debitMaxDailyAmount) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Daily Amount</p>
+                                            {{ form_errors(form.debitMaxDailyAmount) }}
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum $ amount of all ACH transactions you will process on a single calendar day.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.debitMaxDailyCount.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            #  {{ form_widget(form.debitMaxDailyCount) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Daily Count</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum # of transactions you will process on a single calendar day.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="row nopadding">
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.debitMaxAmount14days.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            $  {{ form_widget(form.debitMaxAmount14days) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Amount over 14 Days</p>
+                                            {{ form_errors(form.debitMaxAmount14days) }}
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum $ amount of all ACH transactions you will process in a rolling 14-day period (today + the 13 previous calendar days).'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.debitMaxCount14days.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            #  {{ form_widget(form.debitMaxCount14days) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Count over 14 days</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum # of all ACH transactions you will process in a rolling 14-day period (today + the 13 previous calendar days).'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="row nopadding">
+                                    <div class="col-xs-5 {{ form.achAvgMonthly.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        $  {{ form_widget(form.achAvgMonthly) }}
+                                        <p class="help-block" style="margin-left: 15px">Average Monthly</p>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Average $ amount of all ACH transactions processed in a given month.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-5 {{ form.achHighMonthly.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                        $  {{ form_widget(form.achHighMonthly) }}
+                                        <p class="help-block" style="margin-left: 15px">High Monthly</p>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Highest $ amount of all ACH transaction processed in a given month.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Authorization SEC Types Requested:</label>
+                            <div class="col-xs-7">
+                                {{ form_widget(form.sectypePpd) }} <label class="control-label" style="font-weight: normal">PPD (Written Authorization)</label> <br />
+                                {{ form_widget(form.sectypeCcd) }} <label class="control-label" style="font-weight: normal">CCD (Corp Written Authorization)</label> <br />
+                                {{ form_widget(form.sectypeTel) }} <label class="control-label" style="font-weight: normal">TEL (Telephone)</label> <br />
+                                {{ form_widget(form.sectypeWeb) }} <label class="control-label" style="font-weight: normal">WEB (Internet)</label> <br />
+                                {{ form_widget(form.sectypePop) }} <label class="control-label" style="font-weight: normal">POP (Retail Purchase)<span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(2)</span></label> <br />
+                                {{ form_widget(form.sectypeArc) }} <label class="control-label" style="font-weight: normal">ARC (Accounts Receivable)<span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(2)</span></label> <br />
+                                {{ form_widget(form.sectypeRck) }} <label class="control-label" style="font-weight: normal">RCK (Re-Presented Check)<span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(2)</span></label> <br />
+                                {{ form_widget(form.sectypeBoc) }} <label class="control-label" style="font-weight: normal">BOC (Backoffice Conversion)<span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(2)</span></label> <br />
+                                {{ form_widget(form.sectypeCheck21) }} <label class="control-label" style="font-weight: normal">Check 21 (Remote Deposit)<span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(2)</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Right Side #}
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <div class="col-xs-12" style="margin-left: 30px">
+                                <h3 style="font-size: 16px; margin: 0; padding: 0;">Refunds, credits to vendors, etc. (Credits) <label style="color: red">*</label><span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(1)</span></h3>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-nopadding">
+                            <div class="col-xs-12" style="margin-left: 30px">
+                                <div class="row nopadding">
+                                    <div class="col-xs-5">
+                                        <div class="form-group form-group-nopadding {{ form.creditMaxSingleAmount.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            $  {{ form_widget(form.creditMaxSingleAmount) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Single Amount</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum $ amount you will process in a single ACH transaction.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="row nopadding">
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.creditMaxDailyAmount.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            $  {{ form_widget(form.creditMaxDailyAmount) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Daily Amount</p>
+                                            {{ form_errors(form.creditMaxDailyAmount) }}
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum $ amount of all ACH transactions you will process on a single calendar day.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.creditMaxDailyCount.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            #  {{ form_widget(form.creditMaxDailyCount) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Daily Count</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum # of transactions you will process on a single calendar day.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="row nopadding">
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.creditMaxAmount14days.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            $  {{ form_widget(form.creditMaxAmount14days) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Amount over 14 Days</p>
+                                            {{ form_errors(form.creditMaxAmount14days) }}
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum $ amount of all ACH transactions you will process in a rolling 14-day period (today + the 13 previous calendar days).'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.creditMaxCount14days.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            #  {{ form_widget(form.creditMaxCount14days) }}
+                                            <p class="help-block" style="margin-left: 15px">Max Count over 14 days</p>
+                                        </div>
+                                    </div>
+                                    <span class="col-xs-1" style="padding: 5px 0; margin-left: -50px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Maximum # of all ACH transactions you will process in a rolling 14-day period (today + the 13 previous calendar days).'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-12 control-label" style="height: 60px"></label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Are you interested in ACH verification? <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.achVerification.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.achVerification) }}
+                                    {{ form_errors(form.achVerification) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group" id="achEquipOption" style="display: none;">
+                                <label class="col-xs-3 control-label">Do you need equipment?</label>
+                                <span class="col-xs-9 {{ form.achEquipment.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.achEquipment) }}
+                                    {{ form_errors(form.achEquipment) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Descriptor to appear on Buyer's Bank Statement:</label></label>
+                                <span class="col-xs-9 {{ form.buyerBankStatement.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.buyerBankStatement) }}
+                                    {{ form_errors(form.buyerBankStatement) }}
+                                    <p class="help-block" style="font-size: smaller">15 characters or less, which includes letters or spaces.</p>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" style="padding-top: 0">Customer Service Phone Number:</label>
+                                <span class="col-xs-7 {{ form.phoneBankStatement.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                {{ form_widget(form.phoneBankStatement) }}
+                                {{ form_errors(form.phoneBankStatement) }}
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // > Show achEquipment through css
+            var cssName = '.ach_equipment';
+            var optName = '#achEquipOption';
+
+            $(cssName).on('click', function() {
+                showByCheck(cssName, optName);
+            });
+
+            showByCheck(cssName, optName);
+            // < Show achEquipment
+
+            $('#register_ach_form_buyerBankStatement').keypress(function (e) {
+                var regex = new RegExp("^[a-zA-Z ]+$");
+                var strigChar = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+                if (regex.test(strigChar)) {
+                    return true;
+                }
+                return false
+            });
+
+            buttonBlur('register_ach_form', '...Saving...');
+        });
+    </script>
+{% endblock %}

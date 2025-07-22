@@ -1,0 +1,5 @@
+sentry:
+    dsn: ""
+    options:
+        before_send: 'sentry.callback.before_send'
+        error_types: "E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT"

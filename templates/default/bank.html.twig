@@ -1,0 +1,164 @@
+{% extends 'register.html.twig' %}
+
+{% block title %}OmniFund | {{ title }}{% endblock %}
+
+{% block container  %}
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-content">
+                {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+                {% form_theme form 'input.error.html.twig' %}
+
+                <div class="row" style="margin-bottom:12px;">
+                    <div class="col-md-12">
+                        <div class="col-xs-12">
+                            <div style="float:right">
+                                <div class="btn-group save-group">
+                                    <div class="btn-group save-group">{{ form_widget(form.Save) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            {{ include ('step_indicator.html.twig', {step: 4}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {# Left Side #}
+                    <div class="col-xs-7">
+                        <div class="form-group form-group-nopadding">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Name On Account: <label style="color: red">*</label></label>
+                                <span class="col-xs-6 {{ form.bankNameOnAccount.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bankNameOnAccount) }}
+                                    {{ form_errors(form.bankNameOnAccount) }}
+                                </span>
+                                <span class="col-xs-1" style="padding: 5px 0; margin-left: -5px">
+                                    <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Must match the name of the business on the state filing website.'>
+                                        <i class="fa fa-info-circle fa-lg"></i>
+                                    </a>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Bank Name: <label style="color: red">*</label></label>
+                                <span class="col-xs-7 {{ form.bankName.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bankName) }}
+                                    {{ form_errors(form.bankName) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Bank Phone Number: <label style="color: red">*</label></label>
+                                <span class="col-xs-4 {{ form.bankPhone.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bankPhone) }}
+                                    {{ form_errors(form.bankPhone) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Bank City: <label style="color: red">*</label></label>
+                                <span class="col-xs-4 {{ form.bankCity.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bankCity) }}
+                                    {{ form_errors(form.bankCity) }}
+                                </span>
+
+                                <label class="col-xs-1 control-label">State:</label>
+                                <span class="col-xs-2 {{ form.bankState.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bankState) }}
+                                    {{ form_errors(form.bankState) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Bank Routing Number: <label style="color: red">*</label></label>
+                                <span class="col-xs-4 {{ form.bankRouting.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bankRouting) }}
+                                    {{ form_errors(form.bankRouting) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Bank Account Number: <label style="color: red">*</label></label>
+                                <span class="col-xs-4 {{ form.bankAccount.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bankAccount) }}
+                                    {{ form_errors(form.bankAccount) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Bank Account <br/> Type: <label style="color: red">*</label></label>
+                                <span class="col-xs-4 {{ form.bankType.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bankType) }}
+                                    {{ form_errors(form.bankType) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Do you want to specify an additional bank? <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.bank2.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.bank2) }}
+                                    {{ form_errors(form.bank2) }}
+                                </span>
+                            </div>
+
+                            {# 2nd Bank Account #}
+                            <div class="form-group" id="bank_2" style="padding-left: 50px; display: none">
+                                <div style="background-color: #d8d8d812; border: solid 1px #dadada; border-radius: 8px; padding-top: 10px">
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Bank Used For:</label>
+                                        <span class="col-xs-5 {{ form.bank2Usedfor.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            {{ form_widget(form.bank2Usedfor) }}
+                                            {{ form_errors(form.bank2Usedfor) }}
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Bank Routing Number:</label>
+                                        <span class="col-xs-5 {{ form.bank2Routing.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            {{ form_widget(form.bank2Routing) }}
+                                            {{ form_errors(form.bank2Routing) }}
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Bank Account Number:</label>
+                                        <span class="col-xs-5 {{ form.bank2Account.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            {{ form_widget(form.bank2Account) }}
+                                            {{ form_errors(form.bank2Account) }}
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">Bank Account Type:</label>
+                                        <span class="col-xs-5 {{ form.bank2Type.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            {{ form_widget(form.bank2Type) }}
+                                            {{ form_errors(form.bank2Type) }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            fadeInOut("#register_bank_form_bank2_0", "#register_bank_form_bank2_1", "#bank_2");
+
+            buttonBlur('register_bank_form', '...Saving...');
+        });
+    </script>
+{% endblock %}

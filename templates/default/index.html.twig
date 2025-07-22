@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block body  %}
+    <div class="container" style="min-width:400px; max-width: 850px; margin-top: 10px">
+        <a href="/"><img src="{{ asset('/includes/images/omnifund_logo.png') }}" style="height: 50px;"></a>
+
+        <div class="ibox" style="margin: 10px auto 10px;">
+
+            <div class="ibox-title">
+                <h5>Application</h5>
+            </div>
+
+            <div class="ibox-content">
+                <div class="row">
+                    {# Register for OmniFund #}
+                    <div class="col-sm-6">
+                        <div class="mb-2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="font-size:18px;font-weight:bold;">Register</span><br>
+                                    <p><em>To begin the registration process, please enter your business email address below.
+                                            If an application exists, you will need to confirm before the creation takes place.</em></p>
+                                    {{ form_start(registerForm) }}
+                                        {% if 001 == app.session.flashBag.get('errorCode')|join %}
+                                            {{ form_widget(registerForm.confirm, {value: "true"}) }}
+                                        {% endif %}
+
+                                        {% for msg in app.session.flashBag.get('errorReg') %}
+                                            <div class="alert alert-warning">
+                                                {{ msg|raw }}
+                                            </div>
+                                        {% endfor %}
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1"><img src="{{ asset('/includes/images/omnifund/icons/self_managed_user_portal_open.png') }}" style="max-width: 16px;"/></span>
+                                                {{ form_widget(registerForm.businessEmail, {value: app.session.flashBag.get('errorRegEmail')|join}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:0px;">
+                                            {{ form_widget(registerForm.Create) }}
+                                        </div>
+
+                                        {{ form_widget(registerForm.isoId, {value: app.session.flashBag.get('regIso')|join}) }}
+                                    {{ form_end(registerForm) }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {# Continue Application #}
+                    <div class="col-sm-6">
+                        <div class="mb-2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span style="font-size:18px;font-weight:bold;">Continue</span><br>
+                                    <p><em>If you have already started an application, please enter the Business Email you
+                                            began registration with, along with the Application ID emailed to you.</em></p>
+                                    {% for msg in app.session.flashBag.get('errorLogin') %}
+                                        <div class="alert alert-danger">
+                                            {{ msg }}
+                                        </div>
+                                    {% endfor %}
+
+                                    {{ form_start(continueForm) }}
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1"><img src="{{ asset('/includes/images/omnifund/icons/self_managed_user_portal_open.png') }}" style="max-width: 16px;"/></span>
+                                                {{ form_widget(continueForm.businessEmail, {value: app.session.flashBag.get('errorLoginEmail')|join}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1"><img src="{{ asset('/includes/images/omnifund/icons/security_focused_open.png') }}" style="max-width: 15px;"/></span>
+                                                {{ form_widget(continueForm.applicationHash) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            {{ form_widget(continueForm.Continue) }}
+                                        </div>
+
+                                        <div class="form-group" style="margin-bottom:0px;">
+                                            <a href="{{ path('forgot_application') }}">Forgot Application ID?</a>
+                                        </div>
+
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('omnifund_boarding_auth') }}">
+                                    {{ form_end(continueForm) }}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br/>
+        <div class="ibox" style="margin: 0 auto 20px;">
+            <div class="ibox-content">
+                    <span style="color:#666">
+                    Privacy Note: There is no mission more important to OmniFund than protecting the security
+                    and privacy of your data. If you ever receive a suspicious email requesting your OmniFund account information,
+                    please contact us immediately at support@omnifund.com for a prompt investigation and response.
+                    </span>
+            </div>
+        </div>
+
+        <table align="center">
+            <tr>
+                <td style="padding: 5px;">
+                    <a href="http://www.electran.org/" target="_blank"><img src="{{ asset('/includes/images/eta_member_logo.png') }}"/></a>
+                </td>
+                <td style="padding: 5px;">
+                    <a href="https://www.pcisecuritystandards.org/" target="_blank"><img src="{{ asset('/includes/images/dss-certified-v3.2.2.png') }}" style="max-height: 56px;"></a>
+                </td>
+                <td style="padding: 5px;">
+                    <a href="https://eugdprcompliant.com/" target="_blank"><img src="{{ asset('/includes/images/gdpr-compliant.gif') }}" style="max-height: 45px;"></a>
+                </td>
+                <td style="padding: 5px;">
+                    <a href="https://www.inc.com/inc5000/" target="_blank"><img src="{{ asset('/includes/images/inc5000.png') }}" style="max-height: 56px;"></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $('form[name="application_register_form"]').submit(function() {
+            if(!$("#application_register_form_confirm").val()){
+                var message = confirm("Are you sure you want to create a new application?");
+
+                if(message) {
+                    var button = $(this).find('button[type="submit"]');
+                    button.attr({disabled: true}).html("...Registering...").blur();
+                }
+
+                return message;
+            }
+        });
+
+        $(document).ready(function() {
+            buttonBlur('application_login_form', '...Signing In...');
+        });
+    </script>
+{% endblock %}

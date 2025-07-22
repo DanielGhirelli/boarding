@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OmniFund | Registration{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('includes/css/bootstrap/3.3.6/css/bootstrap-datetimepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('includes/css/stepper/3.0.1/css/gsi-step-indicator.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('includes/plugins/bootstrap-multiselect/bootstrap-multiselect.css') }}">
+    <link rel="stylesheet" href="{{ asset('includes/plugins/bootstrap-combobox/bootstrap-combobox.css') }}">
+{% endblock %}
+
+{% block body  %}
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="nav-brand">
+                    <a href="#">
+                        <img src="{{ asset('includes/images/omnifund_logo.png') }}" style="max-height:49px;" alt="OmniFund" />
+                    </a>
+                </div>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        Signed in as: <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="display:inline-block">
+                            <strong>{{ app.user.businessEmail }}</strong> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li> <a href="https://support.gotobilling.com" target="_blank">Help Desk</a></li>
+                            <li> <a href="{{ url('logout_application') }}">Logoff</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    {% block container %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('includes/scripts/jquery.mask.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('includes/scripts/bootstrap/3.4.1/moment-with-locales.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/scripts/bootstrap/3.3.6/bootstrap-datetimepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/plugins/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('includes/plugins/bootstrap-combobox/bootstrap-combobox.js') }}"></script>
+{% endblock %}

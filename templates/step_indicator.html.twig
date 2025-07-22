@@ -1,0 +1,103 @@
+<!-- BEGIN STEP INDICATOR-->
+<ul class="gsi-step-indicator triangle gsi-style-1 gsi-transition" style="line-height: 1;">
+    
+    {% if step >= 1 %}
+        <li class="current">
+            <a href="{{ url('register_business_info') }}">
+    {% else %}
+        <li>
+            <a>
+    {% endif %}
+            <span class="number">1</span>
+            <span class="desc">
+                <label>Business Info</label>
+            </span>
+        </a>
+    </li>
+
+    {% if step >= 2 %}
+        <li class="current">
+            <a href="{{ url('register_business_struc') }}">
+    {% else %}
+        <li>
+            <a>
+    {% endif %}
+            <span class="number">2</span>
+            <span class="desc">
+                <label>Business Structure</label>
+            </span>
+        </a>
+    </li>
+
+    {% if step >= 3 %}
+        <li class="current">
+            <a href="{{ url('register_ownership_info') }}">
+    {% else %}
+        <li>
+            <a>
+    {% endif %}
+            <span class="number">3</span>
+            <span class="desc">
+                <label>Ownership</label>
+            </span>
+        </a>
+    </li>
+
+    {% if step >= 4 %}
+        <li class="current">
+            <a href="{{ url('register_business_bank') }}">
+    {% else %}
+        <li>
+            <a>
+    {% endif %}
+            <span class="number">4</span>
+            <span class="desc">
+                <label>Business Bank</label>
+            </span>
+        </a>
+    </li>
+
+    {% if step >= 5 %}
+        <li class="current">
+            <a href="{{ url('register_card') }}">
+    {% else %}
+        <li>
+            <a>
+    {% endif %}
+            <span class="number">5</span>
+            <span class="desc">
+                <label>Card Processing</label>
+            </span>
+        </a>
+    </li>
+
+    {% if step >= 6 %}
+        <li class="current">
+            <a href="{{ url('register_ach') }}">
+    {% else %}
+        <li>
+            <a>
+    {% endif %}
+            <span class="number">6</span>
+            <span class="desc">
+                <label>ACH Processing</label>
+            </span>
+        </a>
+    </li>
+
+    {% if step >= 7 %}
+        <li class="current">
+            <a href="{{ url('register_document') }}">
+    {% else %}
+        <li>
+            <a>
+    {% endif %}
+            <span class="number">7</span>
+            <span class="desc">
+                <label>Documents</label>
+            </span>
+        </a>
+    </li>
+
+</ul>
+<!-- END STEP INDICATOR--->

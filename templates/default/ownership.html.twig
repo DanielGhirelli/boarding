@@ -1,0 +1,343 @@
+{% extends 'register.html.twig' %}
+
+{% block title %}OmniFund | {{ title }}{% endblock %}
+
+{% block container  %}
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-content">
+                {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+                {% form_theme form 'input.error.html.twig' %}
+
+                <div class="row" style="margin-bottom:12px;">
+                    <div class="col-md-12">
+                        <div class="col-xs-12">
+                            <div style="float:right">
+                                <div class="btn-group save-group">
+                                    <div class="btn-group save-group">{{ form_widget(form.Save) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            {{ include ('step_indicator.html.twig', {step: 3}) }}
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="alert alert-info alert-dismissible fade in" style="margin-bottom: 10px;">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration: none">&times;</a>
+                                <h4>Notes:</h4>
+                                <span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(1)</span>Please provide the owner’s home address and not the business address.
+                                <br/>
+                                <span style="margin: 0 5px 0 5px; font-weight: bold; font-size: 10px; vertical-align: super">(2)</span>Provide a valid owner's personal email to send Docusign contracts.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {# Left Side #}
+                    <div class="col-xs-6">
+                        <div class="form-group form-group-nopadding">
+                            <div class="form-group">
+                                <h3 style="float:left; font-size: 18px;font-weight: 600;line-height: 23px;margin: 0 0 0 15px;padding: 0;">Controlling Owner</h3>
+                            </div>
+
+                            <label class="col-xs-3 control-label">Full Name: <label style="color: red">*</label></label>
+                            <div class="col-xs-9">
+                                <div class="row nopadding">
+                                    <div class="col-xs-6">
+                                        <div class="form-group {{ form.ownerFirst.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            {{ form_widget(form.ownerFirst) }}
+                                            {{ form_errors(form.ownerFirst) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-5">
+                                        <div class="form-group {{ form.ownerLast.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            {{ form_widget(form.ownerLast) }}
+                                            {{ form_errors(form.ownerLast) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-1" style="padding: 5px 0; margin-left: -10px">
+                                        <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Use your full legal name including suffixes.'>
+                                            <i class="fa fa-info-circle fa-lg"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Title: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.ownerTitle.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownerTitle) }}
+                                    {{ form_errors(form.ownerTitle) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Date of Birth: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.ownerDob.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    <div class='input-group date js-datepicker'>
+                                        {{ form_widget(form.ownerDob) }}
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                        {{ form_errors(form.ownerDob) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group" id="ownershipDl">
+                                <label class="col-xs-3 control-label">Driver's License Number: <label style="color: red">*</label></label>
+                                <span class="col-xs-5 {{ form.ownerDl.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownerDl) }}
+                                    {{ form_errors(form.ownerDl) }}
+                                </span>
+
+                                <label class="col-xs-1 control-label">State:</label>
+                                <span class="col-xs-3 {{ form.ownerDlState.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownerDlState) }}
+                                    {{ form_errors(form.ownerDlState) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Social Security Number: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.ownerSsn.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownerSsn) }}
+                                    {{ form_errors(form.ownerSsn) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0px">
+                                <label class="col-xs-3 control-label">
+                                    <span style="font-weight: bolder; font-size: 10px; vertical-align: super">(1)</span> Home Address: <label style="color: red">*</label>
+                                </label>
+                                <span class="col-xs-9 {{ form.ownerAddress1.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownerAddress1) }}
+                                    {{ form_errors(form.ownerAddress1) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group form-group-nopadding">
+                                <label class="col-xs-3 control-label"></label>
+                                <div class="col-xs-9">
+                                    <div class="row nopadding">
+                                        <div class="col-xs-5">
+                                            <div class="form-group {{ form.ownerCity.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                                {{ form_widget(form.ownerCity) }}
+                                                <p class="help-block">City</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <div class="form-group {{ form.ownerState.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                                {{ form_widget(form.ownerState) }}
+                                                <p class="help-block">State</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <div class="form-group {{ form.ownerZip.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                                {{ form_widget(form.ownerZip) }}
+                                                <p class="help-block">Zip</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    <span style="font-weight: bolder; font-size: 10px; vertical-align: super">(2)</span> Personal Email: <label style="color: red">*</label>
+                                </label>
+                                <span class="col-xs-8 {{ form.ownerEmail.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownerEmail) }}
+                                    {{ form_errors(form.ownerEmail) }}
+                                </span>
+                                <span class="col-xs-1" style="padding: 5px 0; margin-left: -5px">
+                                <a data-toggle="popover" style="text-decoration: none; padding: 2px 0px 0px 10px; cursor: pointer" title='Info <a href="#" class="close" data-dismiss="alert" style="margin-top: -3px" title="Close">&times;</a>' data-content='Email address where signature documents will be received.'>
+                                    <i class="fa fa-info-circle fa-lg"></i>
+                                </a>
+                            </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Home or Mobile Phone: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.ownerPhone.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownerPhone) }}
+                                    {{ form_errors(form.ownerPhone) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Percent <br/> Owned: <label style="color: red">*</label></label>
+                                <span class="col-xs-6 {{ form.ownerPercent.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.ownerPercent) }} <label class="control-label" style="font-weight: normal">%</label>
+                                    {{ form_errors(form.ownerPercent) }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Right Side #}
+                    <div class="col-xs-6" id="secondOwner">
+                        <div class="form-group form-group-nopadding">
+                            <div class="form-group">
+                                <h3 style="float:left; font-size: 18px;font-weight: 600;line-height: 23px;margin: 0 0 0 15px;padding: 0;">Beneficial Owner</h3>
+                            </div>
+
+                            <label class="col-xs-3 control-label">Full Name: <label style="color: red">*</label></label>
+                            <div class="col-xs-9">
+                                <div class="row nopadding">
+                                    <div class="col-xs-6">
+                                        <div class="form-group {{ form.owner2First.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            {{ form_widget(form.owner2First) }}
+                                            {{ form_errors(form.owner2First) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6">
+                                        <div class="form-group {{ form.owner2Last.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                            {{ form_widget(form.owner2Last) }}
+                                            {{ form_errors(form.owner2Last) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Title: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.owner2Title.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.owner2Title) }}
+                                    {{ form_errors(form.owner2Title) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Date of Birth: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.owner2Dob.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    <div class='input-group date js-datepicker'>
+                                        {{ form_widget(form.owner2Dob) }}
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                    {{ form_errors(form.owner2Dob) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group" id="ownership2Dl">
+                                <label class="col-xs-3 control-label">Driver's License Number: <label style="color: red">*</label></label>
+                                <span class="col-xs-5 {{ form.owner2Dl.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.owner2Dl) }}
+                                    {{ form_errors(form.owner2Dl) }}
+                                </span>
+
+                                <label class="col-xs-1 control-label">State:</label>
+                                <span class="col-xs-3 {{ form.owner2DlState.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.owner2DlState) }}
+                                    {{ form_errors(form.owner2DlState) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Social Security Number: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.owner2Ssn.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.owner2Ssn) }}
+                                    {{ form_errors(form.owner2Ssn) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0px">
+                                <label class="col-xs-3 control-label">
+                                    <span style="font-weight: bolder; font-size: 10px; vertical-align: super">(1)</span> Home Address: <label style="color: red">*</label>
+                                </label>
+                                <span class="col-xs-9 {{ form.owner2Address1.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.owner2Address1) }}
+                                    {{ form_errors(form.owner2Address1) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group form-group-nopadding">
+                                <label class="col-xs-3 control-label"></label>
+                                <div class="col-xs-9">
+                                    <div class="row nopadding">
+                                        <div class="col-xs-5">
+                                            <div class="form-group {{ form.owner2City.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                                {{ form_widget(form.owner2City) }}
+                                                <p class="help-block">City</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <div class="form-group {{ form.owner2State.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                                {{ form_widget(form.owner2State) }}
+                                                <p class="help-block">State</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <div class="form-group {{ form.owner2Zip.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                                {{ form_widget(form.owner2Zip) }}
+                                                <p class="help-block">Zip</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    <span style="font-weight: bolder; font-size: 10px; vertical-align: super">(2)</span> Personal Email: <label style="color: red">*</label>
+                                </label>
+                                <span class="col-xs-9 {{ form.owner2Email.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.owner2Email) }}
+                                    {{ form_errors(form.owner2Email) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Home or Mobile Phone: <label style="color: red">*</label></label>
+                                <span class="col-xs-9 {{ form.owner2Phone.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.owner2Phone) }}
+                                    {{ form_errors(form.owner2Phone) }}
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Percent <br/> Owned: <label style="color: red">*</label></label>
+                                <span class="col-xs-6 {{ form.owner2Percent.vars.errors|length > 0 ? 'has-error has-danger' }}">
+                                    {{ form_widget(form.owner2Percent) }} <label class="control-label" style="font-weight: normal">%</label>
+                                    {{ form_errors(form.owner2Percent) }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Bootstrap Datepicker
+            $('.js-datepicker').datetimepicker({
+                format: 'MM/DD/YYYY',
+                maxDate: moment()
+            });
+
+            // Hide dl info box if does not want CC
+            if("y" != $("#register_ownership_form_acceptCc").val()){
+                $("#ownershipDl").hide();
+                $("#ownership2Dl").hide();
+            }
+
+            buttonBlur('register_ownership_form', '...Saving...');
+        });
+    </script>
+{% endblock %}

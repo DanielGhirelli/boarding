@@ -1,0 +1,42 @@
+{% extends 'register.html.twig' %}
+
+{% block title %}OmniFund | {{ title }}{% endblock %}
+
+{% block container  %}
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-content">
+                {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+                {% form_theme form 'input.error.html.twig' %}
+
+                <div class="row" style="margin-bottom:12px;">
+                    <div class="col-md-12">
+                        <div class="col-xs-12">
+                            {{ include ('step_indicator.html.twig', {step: 0}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12" style="text-align:center;">
+                        <h1 style="font-weight: bolder">Welcome to OmniFund!</h1>
+                        <br />
+                        <h4 style="font-weight: normal; color: #8a8a8a;">
+                            You will receive an email notification shortly with a link and Application ID. <br />
+                            Use the Application ID if you need to stop and come back at a later time. <br />
+                            Your application information will be saved as you proceed through each step.
+                        </h4>
+                        <br /><br /><br />
+                        <div style="display: flex; justify-content: center">
+                            {{ form_widget(form.Continue) }}
+                        </div>
+                        <br /> <br /><br /><br />
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

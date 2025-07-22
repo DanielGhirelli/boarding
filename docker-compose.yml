@@ -1,0 +1,26 @@
+version: '3'
+
+volumes:
+    db_data:
+        driver: local
+
+services:
+    web-server:
+        build: ./_docker/php/
+        ports:
+            - 8001:80
+        volumes:
+            - .:/var/www/html
+            - ./_docker/apache/www.conf:/etc/apache2/sites-enabled/000-default.conf
+            - ./_docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+        links:
+            - mysql-server
+    mysql-server:
+        platform: linux/x86_64
+        image: mysql:8.0
+        ports:
+          - 3307:3306
+        volumes:
+          - db_data:/var/lib/mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: '0000'

@@ -1,0 +1,167 @@
+{% extends 'register.html.twig' %}
+
+{% block title %}OmniFund | {{ title }}{% endblock %}
+
+{% block container  %}
+    <div class="container">
+        <div class="ibox">
+            <div class="ibox-content">
+                {{ form_start(form, {attr: {class: 'form-horizontal'} }) }}
+                {% form_theme form 'input.error.html.twig' %}
+
+                <div class="row" style="margin-bottom:12px;">
+                    <div class="col-md-12">
+                        <div class="col-xs-12">
+                            <div style="float:right">
+                                <div class="btn-group save-group">
+                                    <div class="btn-group save-group">{{ form_widget(form.Save) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            {{ include ('step_indicator.html.twig', {step: 7}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% if form.bank1.vars.show ?? false %}
+                        <div class="gbox" id="bankStatements">
+                            <div class="gbox-title">
+                                <h5>Please upload your most recent three months of Bank Statements:</h5>
+                            </div>
+
+                            <div class="gbox-content">
+                                <div class="form-group">
+                                    <div class="col-xs-9">
+                                        <label>Month 1: <span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.bank1) }}<br />
+                                        <label>Month 2: <span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.bank2) }} <br />
+                                        <label>Month 3: <span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.bank3) }} <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if form.processing1.vars.show ?? false %}
+                        <div class="gbox" id="processingStatements">
+                            <div class="gbox-title">
+                                <h5>Please upload your most recent three months of Processing Statements:
+                            </div>
+
+                            <div class="gbox-content">
+                                <div class="form-group">
+                                    <div class="col-xs-9">
+                                        <label>Month 1: <span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.processing1) }} <br />
+                                        <label>Month 2: <span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.processing2) }} <br />
+                                        <label>Month 3: <span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.processing3) }} <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="gbox">
+                            <div class="gbox-title">
+                                <h5>Please upload a Void Check or Bank Letter:</h5> <label style="color: red">*</label>
+                            </div>
+
+                            <div class="gbox-content">
+                                <div class="form-group">
+                                    <div class="col-xs-9">
+                                        <label><span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.voidCheck) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if form.businessLicense.vars.show ?? false %}
+                        <div class="gbox" id="businessLicense">
+                            <div class="gbox-title">
+                                <h5>Please upload a copy of your Government Issued Business License:
+                            </div>
+
+                            <div class="gbox-content">
+                                <div class="form-group">
+                                    <div class="col-xs-9">
+                                        <label><span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.businessLicense) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if form.extra1.vars.show ?? false %}
+                        <div class="gbox" id="extra1">
+                            <div class="gbox-title">
+                                <h5>Please choose one of the following documents to upload:
+                            </div>
+
+                            <div class="gbox-content">
+                                <div class="form-group">
+                                    <div class="col-xs-9">
+                                        {{ form_widget(form.extra1Type) }} <label><span style="color:#a94442; font-size: 15px;"></span></label>
+                                        {{ form_widget(form.extra1) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // < Validate file size
+            var button = $(this).find('button[type="submit"]');
+
+            $('.filesize').bind('change', function(event) {
+                var btnDisable = false;
+
+                $('.filesize').each(function(index, element) {
+                    const file = element.files[0];
+                    const file_id = "#" + element.id;
+
+                    $(file_id).prev().find("span").text('');
+
+                    if(file) {
+                        if (file.size > 20000000) {
+                            btnDisable = true;
+                            button.attr({disabled: true});
+
+                            $(file_id).prev().find("span").text('[Error] Attachment larger than 20MB!');
+                        }
+                    }
+                });
+
+                if(!btnDisable)
+                {
+                    button.attr({disabled: false});
+                }
+            });
+            // > Validate file size
+
+            buttonBlur('register_document_form', '...Submitting...');
+        });
+    </script>
+{% endblock %}

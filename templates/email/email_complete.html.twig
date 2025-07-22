@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="en" />
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#eff0f0" style="font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-top: 20px; transform: scale(1, 1); transform-origin: left top 0px;" min-scale="0.285">
+    <tbody>
+    <tr>
+        <td width="100%" bgcolor="#eff0f0" valign="top" align="center" style="border-collapse:collapse">
+            <table width="700" border="0" cellpadding="0" cellspacing="0" bgcolor="#00c257">
+                <tbody>
+                <tr>
+                    <td width="285" align="left" style="border:none">
+                        <img src="{{ app.request.uriForPath('/includes/images/omnifund_email.png') }}" style="display:block; width: 364px; height: 80px;">
+                    </td>
+                    <td align="right" style="padding:0px 20px 0px 0px; font-family:Arial; font-size:18px; line-height:24px; text-align:right; color:#ffffff">
+                        <strong>Application</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#ffffff" colspan="2">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <div style="font-size:18px; font-weight:bold; margin-left:25px; margin-top:25px">An application has been completed!</div>
+                            <div style="font-size:14px; margin: 8px 25px 25px 25px;">
+                                Application ID: <a href="https://secure.gotobilling.com/admin/applications/view/{{ application.applicationId }}" target="_blank">{{ application.applicationHash }}</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center">
+                            <table width="97%" border="0" cellpadding="0" cellspacing="0" style="word-wrap:break-word; table-layout:fixed;">
+                                {# BUSINESS INFORMATION #}
+                                <thead style="font-size: 15px">
+                                    <tr bgcolor="#545454" style="color: #fff; border-color: #32383e; vertical-align: top;">
+                                        <th style="padding: .75rem; text-align: left">Business Information</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody style="font-size: 12px">
+                                    <tr style="vertical-align: top;">
+                                        <td width="40%" style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">Contact name:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessContactFirst }} {{ application.businessContactLast }}
+                                        </td>
+                                    </tr>
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">Full Legal Business Name:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessName }}
+                                        </td>
+                                    </tr>
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">Legal Address:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessAddress1 }}
+                                            <br />
+                                            {{ application.businessCity }}, {{ application.businessState }}  {{ application.businessZip }}
+                                        </td>
+                                    </tr>
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">Legal Phone:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessPhone }}
+                                        </td>
+                                    </tr>
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">Email:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessEmail }}
+                                        </td>
+                                    </tr>
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">DBA:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessDba }}
+                                        </td>
+                                    </tr>
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">DBA Address:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessDbaAddress1() }}
+                                            <br />
+                                            {{ application.businessDbaCity }}, {{ application.businessDbaState }}  {{ application.businessDbaZip }}
+                                        </td>
+                                    </tr>
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">DBA Phone:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessDbaPhone }}
+                                        </td>
+                                    </tr>
+
+                                    {% if application.businessFax %}
+                                        <tr style="vertical-align: top;">
+                                            <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">Fax #:</td>
+                                            <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                                {{ application.businessFax }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+
+                                    {% if application.businessWebsite %}
+                                        <tr style="vertical-align: top;">
+                                            <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">Website Address:</td>
+                                            <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                                <a href="{{ application.businessWebsite }}" target="_blank">{{ application.businessWebsite }}</a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">Number of Locations:</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.businessNumLocations }}
+                                        </td>
+                                    </tr>
+
+                                    <tr style="vertical-align: top;">
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6; font-weight: bold">How did you hear about us?</td>
+                                        <td style="padding: .75rem; border-top: 1px solid #dee2e6;">
+                                            {{ application.heardAbout }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <table width="600" border="0" cellpadding="0" cellspacing="0" bgcolor="#eff0f0">
+                <tbody>
+                <tr>
+                    <td align="center">
+                        <br />
+                        <img src="{{ app.request.uriForPath('/includes/images/omnifund_footer_logo.png') }}" style="width: 167px; height: 50px; margin-bottom: 5px">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <font style="text-decoration:none; color:#A9ADAD; font-size:11px;">
+                            <a href="https://fortispay.com/privacy-and-terms" target="_blank" style="color:#A9ADAD; text-decoration:none!important"><u>Terms of Use</u></a>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="https://fortispay.com/privacy-and-terms" target="_blank" style="color:#A9ADAD; text-decoration:none!important"><u>Privacy Policy</u></a>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="https://support.gotobilling.com/" target="_blank" style="color:#A9ADAD; text-decoration:none!important"><u>Helpdesk</u></a>
+                        </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <font style="text-decoration:none; color:#A9ADAD; font-size:11px; line-height:14.5px;">
+                            <br>
+                            <br>
+                            © gotoBilling {{ "now"|date("Y") }}. All rights reserved.<br>
+                            OmniFund® is a registered trademark of gotoBilling, Inc.
+                        </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
